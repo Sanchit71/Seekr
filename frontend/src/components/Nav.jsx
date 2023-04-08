@@ -3,12 +3,13 @@ import "./nav.css";
 import { AiOutlineHome } from "react-icons/ai";
 import { AiOutlineUser } from "react-icons/ai";
 import { AiFillBook } from "react-icons/ai";
-import { AiOutlineContacts } from "react-icons/ai";
-// import { FcServices } from "react-icons/fc";
+import { AiOutlineYoutube } from "react-icons/ai";
+import { GiShardSword } from "react-icons/gi";
 import { Link } from "react-scroll";
-// import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Nav = () => {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <nav>
       <Link to="#" spy={true} smooth={true} offset={50} duration={1000}>
@@ -17,8 +18,13 @@ const Nav = () => {
       <Link to="mission" spy={true} smooth={true} offset={50} duration={1000}>
         <AiFillBook />
       </Link>
+      {currentUser && (
+        <Link to="mission" spy={true} smooth={true} offset={50} duration={1000}>
+          <GiShardSword />
+        </Link>
+      )}
       <Link to="watch" spy={true} smooth={true} offset={50} duration={1000}>
-        <AiOutlineContacts />
+        <AiOutlineYoutube />
       </Link>
       <Link to="contact" spy={true} smooth={true} offset={50} duration={1000}>
         <AiOutlineUser />
