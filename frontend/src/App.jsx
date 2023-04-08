@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Error from "./pages/Error";
 import Upload from "./components/Upload";
 import About from "./auth/About";
+import PlayVideo from "./components/PlayVideo";
 import Home from "./layouts/Home";
 
 function App() {
@@ -31,7 +32,12 @@ function App() {
             <Navbar setsign={setsignUP} setlogin={setloginUP} />
             <Routes>
               <Route path="/" element={<Home />} exact />
-              {currentUser && <Route path="/upload" element={<Upload />} />}
+              {currentUser && (
+                <Route
+                  path="/upload"
+                  element={!currentVideo ? <Upload /> : <PlayVideo />}
+                />
+              )}{" "}
               <Route path="/about/:id" element={<About />} />
               <Route path="*" element={<Error />} />
             </Routes>

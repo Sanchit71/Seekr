@@ -159,7 +159,7 @@ const Upload = () => {
   const [iurl, setImage] = useState("");
   const Navigate = useNavigate();
   const dispatch = useDispatch();
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState();
   const [loading, setLoading] = useState(false);
   const handleChangeSwitch = (event) => {
     setChecked(event.target.checked);
@@ -231,11 +231,11 @@ const Upload = () => {
     const data = res.data.times_in_sec;
     setLoading(false);
     ////
-    const his = await axios.put(`/users/history/${currentUser._id}`, {
-      link: iurl,
-      timeStamp: data,
-      query: des,
-    });
+    // const his = await axios.put(`/users/history/${currentUser._id}`, {
+    //   link: iurl,
+    //   timeStamp: data,
+    //   query: des,
+    // });
     ////
     dispatch(fetchSuccess({ link: iurl, data }));
   };
@@ -251,15 +251,15 @@ const Upload = () => {
       },
       { headers: { "Content-Type": "application/json" } }
     );
-    console.log(des);
     const data = res.data.times_in_sec;
+    console.log(data);
     setLoading(false);
     //
-    await axios.put(`/users/history/${currentUser._id}`, {
-      link: link,
-      timeStamp: data,
-      query: des,
-    });
+    // await axios.put(`/users/history/${currentUser._id}`, {
+    //   link: link,
+    //   timeStamp: data,
+    //   query: des,
+    // });
     //
     dispatch(fetchSuccess({ link, data }));
   };
