@@ -53,7 +53,6 @@ const Lding = styled.h1`
   color: #ffff;
   font-size: 20px;
   font-weight: 500;
-  /* font-family: "Rubik Pixels", cursive; */
   font-family: "Press Start 2P", cursive;
 `;
 
@@ -149,11 +148,13 @@ const Label = styled.label`
   font-family: "Holtwood One SC", serif;
 `;
 
-const Upload = () => {
+const UploadA = () => {
   const [video, setVideo] = useState(undefined);
   const [videoPer, setVideoPer] = useState(0);
   const [imgPer, setImgPer] = useState(0);
+  const [clicked, setClicked] = useState(false);
   const [inputs, setInputs] = useState({});
+  const [words, setWords] = useState([]);
   const [des, setDes] = useState("");
   const [link, setLink] = useState("");
   const [iurl, setImage] = useState("");
@@ -215,6 +216,32 @@ const Upload = () => {
     video && uploadFile(video, "videoUrl");
   }, [video]);
 
+  const handleGetWordVideo = async (e) => {
+    e.preventDefault();
+    const res = await axios.post(
+      "http://",
+      {
+        link: iurl,
+      },
+      { headers: { "Content-Type": "application/json" } }
+    );
+    setWords(res.data);
+    setClicked(true);
+  };
+
+  const handleGetWordLink = async (e) => {
+    e.preventDefault();
+    const res = await axios.post(
+      "http://",
+      {
+        link: link,
+      },
+      { headers: { "Content-Type": "application/json" } }
+    );
+    setWords(res.data);
+    setClicked(true);
+  };
+
   const handleUploadVideo = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -239,6 +266,7 @@ const Upload = () => {
     ////
     dispatch(fetchSuccess({ link: iurl, data }));
   };
+
   const handleUploadLink = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -310,13 +338,24 @@ const Upload = () => {
                       />
                     </>
                   )}
-                  <Desc
-                    placeholder="Description"
-                    row={8}
-                    name="desc"
-                    onChange={(e) => setDes(e.target.value)}
-                  />
-                  <Button onClick={handleUploadVideo}>Upload Video</Button>
+
+                  {clicked && (
+                    <Desc
+                      placeholder="Description"
+                      row={8}
+                      name="desc"
+                      onChange={(e) => setDes(e.target.value)}
+                    />
+                  )}
+                  {!clicked ? (
+                    <>
+                      <Button onClick={handleGetWordVideo}>Get words</Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button onClick={handleUploadVideo}>Upload Video</Button>
+                    </>
+                  )}
                 </>
               ) : (
                 <>
@@ -327,14 +366,25 @@ const Upload = () => {
                     name="link"
                     onChange={(e) => setLink(e.target.value)}
                   />
-                  <Desc
-                    placeholder="Description"
-                    row={8}
-                    name="desc"
-                    onChange={(e) => setDes(e.target.value)}
-                  />
+                  {/* {data && } */}
+                  {clicked && (
+                    <Desc
+                      placeholder="Description"
+                      row={8}
+                      name="desc"
+                      onChange={(e) => setDes(e.target.value)}
+                    />
+                  )}
 
-                  <Button onClick={handleUploadLink}>Upload link</Button>
+                  {!clicked ? (
+                    <>
+                      <Button onClick={handleGetWordLink}>Get Words</Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button onClick={handleUploadLink}>Upload Video</Button>
+                    </>
+                  )}
                 </>
               )}
             </Wrapper>
@@ -355,4 +405,4 @@ const Upload = () => {
   );
 };
 
-export default Upload;
+export default UploadA;

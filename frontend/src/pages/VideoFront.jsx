@@ -77,7 +77,7 @@ const VideoFront = () => {
 
   return (
     <Container>
-      <Title>We provide State of the Art Solutions.</Title>
+      <Title id="action">We provide State of the Art Solutions.</Title>
       <Wrapper>
         <Card
           style={{
@@ -89,7 +89,7 @@ const VideoFront = () => {
             overFlow: "hidden",
           }}
           onClick={() => {
-            navigate("/upload");
+            navigate("/uploada");
           }}
         >
           <Image>

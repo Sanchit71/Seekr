@@ -212,7 +212,7 @@ const ContactUs = () => {
                     fontFamily: ' "Alkatra", cursive',
                   }}
                 >
-                  kyaPata@gmail.com
+                  BhagwanBharose@gmail.com
                 </h4>
                 <h3
                   style={{

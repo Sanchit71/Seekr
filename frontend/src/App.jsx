@@ -10,6 +10,8 @@ import Upload from "./components/Upload";
 import About from "./auth/About";
 import PlayVideo from "./components/PlayVideo";
 import Home from "./layouts/Home";
+import UploadA from "./components/UploadA";
+import History from "./layouts/History";
 
 function App() {
   const [signup, setsignUP] = useState(false);
@@ -32,12 +34,19 @@ function App() {
             <Navbar setsign={setsignUP} setlogin={setloginUP} />
             <Routes>
               <Route path="/" element={<Home />} exact />
+              {currentUser && <Route path="/history" element={<History />} />}
               {currentUser && (
                 <Route
                   path="/upload"
                   element={!currentVideo ? <Upload /> : <PlayVideo />}
                 />
-              )}{" "}
+              )}
+              {currentUser && (
+                <Route
+                  path="/uploada"
+                  element={!currentVideo ? <UploadA /> : <PlayVideo />}
+                />
+              )}
               <Route path="/about/:id" element={<About />} />
               <Route path="*" element={<Error />} />
             </Routes>

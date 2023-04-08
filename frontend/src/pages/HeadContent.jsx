@@ -96,7 +96,7 @@ const HeadContent = () => {
           </Content>
         )}
       </Wrapper>
-      {/* <MyComponent /> */}
+      <MyComponent />
     </Container>
   );
 };
