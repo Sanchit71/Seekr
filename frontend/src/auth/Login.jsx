@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Logo from "../assets/Logo.svg";
+import Logo from "../assets/TeamL.png";
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -83,6 +83,8 @@ const Title = styled.h1`
 const Login = (props) => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
+  const [error, seterror] = useState(undefined);
+
   const dispatch = useDispatch();
   const handleCancel = () => {
     props.setlogin(false);
@@ -100,6 +102,8 @@ const Login = (props) => {
       props.setlogin(false);
     } catch (err) {
       dispatch(loginFailer(err));
+      console.log(err.response.data.message);
+      seterror(err);
     }
   };
 
@@ -156,8 +160,19 @@ const Login = (props) => {
               required
             />
             <Link>
-              <h1 style={{ fontSize: "15px" }}>change password ?</h1>
+              <h1
+                style={{
+                  fontSize: "15px",
+                  color: "#9f9fe3",
+                  textDecoration: "none",
+                }}
+              >
+                change password ?
+              </h1>
             </Link>
+            {error && (
+              <h3 style={{ color: "red" }}>{error.response.data.message}</h3>
+            )}
           </Form>
         </div>
         <div style={{ position: "relative", left: "60%" }}>

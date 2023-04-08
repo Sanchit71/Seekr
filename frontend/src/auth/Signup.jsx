@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Logo from "../assets/Logo.svg";
+import Logo from "../assets/TeamL.png";
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -83,7 +83,7 @@ const Title = styled.h1`
 
 const Signup = (props) => {
   const [name, setName] = useState();
-  // const [confirm, setConfirm] = useState();
+  const [confirm, setConfirm] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
 
@@ -101,23 +101,26 @@ const Signup = (props) => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post(
-        "/auth/signup",
-        {
-          name,
-          email,
-          password,
-        },
-        { headers: { "Content-Type": "application/json" } }
-      );
-      console.log(res);
-      navigate(`/about/${res.data._id}`);
-    } catch (err) {
-      console.log(err);
+    if (password === confirm) {
+      try {
+        const res = await axios.post(
+          "/auth/signup",
+          {
+            name,
+            email,
+            password,
+          },
+          { headers: { "Content-Type": "application/json" } }
+        );
+        console.log(res);
+        navigate(`/about/${res.data._id}`);
+      } catch (err) {
+        console.log(err);
+      }
+      props.setssign(false);
+    } else {
+      alert("Password and Confirm Password should be same");
     }
-
-    props.setsign(false);
   };
 
   return (
@@ -189,6 +192,7 @@ const Signup = (props) => {
               variant="outlined"
               color="secondary"
               type="password"
+              onChange={(e) => setConfirm(e.target.value)}
               required
               sx={{
                 input: {

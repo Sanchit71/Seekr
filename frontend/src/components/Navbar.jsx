@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import Logo from "../assets/Logo.svg";
+import Logo from "../assets/TeamL.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -91,7 +91,7 @@ const Navbar = (props) => {
   return (
     <Wrapper>
       <Main>
-        <img style={{ flex: 0.25 }} alt="logo hai" src={Logo} />
+        <img style={{ flex: 0.2 }} alt="logo hai" src={Logo} height={70} />
         <Items style={{ flex: 1, marginLeft: "8px" }}>
           <Link
             to="/"

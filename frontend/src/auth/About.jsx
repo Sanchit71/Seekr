@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Logo from "../assets/Logo.svg";
+import Logo from "../assets/TeamL.png";
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
 import { useParams } from "react-router-dom";
