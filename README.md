@@ -16,5 +16,5 @@ accurate and relevant results to the users.
 
 The solution takes the link of a youtube video /  a video file as input which is fed into the webpage which applies Machine Learning Algorithms 
 to get timestamps of the search query provided by the user. 
-![Untitled Diagram drawio](https://user-images.githubusercontent.com/98400026/230708261-d75adeec-c12b-4453-93ac-86ae8ae168e0.png)
 
+![Untitled Diagram](https://user-images.githubusercontent.com/98400026/230716126-945efb32-5f4e-4525-b339-480a1cd6892f.png)
