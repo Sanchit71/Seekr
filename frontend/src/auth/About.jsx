@@ -44,24 +44,6 @@ const Form = styled.form`
   margin: 30px auto;
   gap: 10px;
 `;
-const Label = styled.label`
-  color: #ffffff;
-  font-size: 18px;
-`;
-const Input = styled.input`
-  width: 250px;
-  background: #0000006b;
-  height: 31px;
-  border-radius: 10px;
-  color: white;
-  font-size: 20px;
-  outline: none;
-`;
-const Div = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-`;
 
 const Title = styled.h1`
   text-align: center;
@@ -92,7 +74,7 @@ const About = () => {
   const handleSave = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(
+      await axios.put(
         `/users/${id}`,
         {
           address,
@@ -115,6 +97,7 @@ const About = () => {
           <div style={{ margin: "60px" }}>
             <img
               src={Logo}
+              alt="logo hai"
               style={{
                 height: "150px",
               }}

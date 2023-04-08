@@ -2,7 +2,7 @@ import HeadContent from "../pages/HeadContent";
 import ProblemS from "../pages/ProblemS";
 import { useSelector } from "react-redux";
 // import VideoFront from "../components/VideoFront";
-// import Watch from "../components/WatchLive";
+import Watch from "../pages/WatchLive";
 import Nav from "../components/Nav";
 import ContactUs from "../pages/ContactUs";
 
@@ -16,7 +16,7 @@ const Home = () => {
       <Nav />
       <ProblemS />
       {/* {currentUser && <VideoFront />} */}
-      {/* <Watch /> */}
+      <Watch />
       <ContactUs />
     </>
   );

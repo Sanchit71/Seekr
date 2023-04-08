@@ -6,6 +6,7 @@ import Login from "./auth/Login";
 import Signup from "./auth/Signup";
 import { useSelector } from "react-redux";
 import Error from "./pages/Error";
+import About from "./auth/About";
 import Home from "./layouts/Home";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Navbar setsign={setsignUP} setlogin={setloginUP} />
             <Routes>
               <Route path="/" element={<Home />} exact />
+              <Route path="/about/:id" element={<About />} />
               <Route path="*" element={<Error />} />
             </Routes>
             {loginup && <Login loginup={signup} setlogin={setloginUP} />}
