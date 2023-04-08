@@ -59,11 +59,10 @@ const Hover = styled.span`
 `;
 
 const Navbar = (props) => {
-  
   const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
   const [isHover, setIsHover] = useState(false);
   const Navigate = useNavigate();
-  const { currentUser } = useSelector((state) => state.user);
   const handleMouseEnter = () => {
     setIsHover(true);
   };
