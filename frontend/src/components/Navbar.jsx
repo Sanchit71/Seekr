@@ -9,7 +9,7 @@ import { logout } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { hover } from "../redux/userSlice";
 
-const wrapper = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   height: 6px;
 `;
@@ -89,9 +89,9 @@ const Navbar = (props) => {
   };
 
   return (
-    <wrapper>
+    <Wrapper>
       <Main>
-        <img style={{ flex: 0.25 }} src={Logo} />
+        <img style={{ flex: 0.25 }} alt="logo hai" src={Logo} />
         <Items style={{ flex: 1, marginLeft: "8px" }}>
           <Link
             to="/"
@@ -147,7 +147,7 @@ const Navbar = (props) => {
           </>
         )}
       </Main>
-    </wrapper>
+    </Wrapper>
   );
 };
 
