@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Wave from "react-wavify";
 import Card from "react-animated-3d-card";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Container = styled.div`
   width: 100%;
@@ -55,6 +58,9 @@ const Wrapper = styled.div`
 `;
 
 const ProblemS = () => {
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, []);
   return (
     <>
       <Container>
@@ -65,6 +71,7 @@ const ProblemS = () => {
               src={require("../assets/Problem.png")}
               alt="nothing"
               height={650}
+              data-aos="fade-right"
             />
           </Image>
           <Card

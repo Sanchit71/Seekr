@@ -73,19 +73,7 @@ const Form = styled.form`
   padding: 20px;
   border-radius: 10px;
 `;
-// const Label = styled.label`
-//   color: #ffffff;
-//   font-size: 18px;
-// `;
-// const Input = styled.input`
-//   width: 250px;
-//   background: #0000006b;
-//   height: 31px;
-//   border-radius: 10px;
-//   color: white;
-//   font-size: 20px;
-//   outline: none;
-// `;
+
 
 const Button = styled.button`
   padding: 5px 15px;
@@ -111,11 +99,6 @@ const Button = styled.button`
   }
 `;
 
-// const Div = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   gap: 5px;
-// `;
 
 const WhiteBorderTextField = styled(TextField)`
   & .css-1v4qvbo-MuiFormLabel-root-MuiInputLabel-root {
@@ -227,7 +210,7 @@ const ContactUs = () => {
                     fontFamily: ' "Alkatra", cursive',
                   }}
                 >
-                  +91 6268181226
+                  +91 62XXXXXXXX
                 </h4>
                 <h3
                   style={{
