@@ -8,25 +8,36 @@ import math
 from pytube import YouTube
 import cv2
 import yt_dlp as youtube_dl
-
+import pvleopard
+import os
+from sklearn.feature_extraction.text import TfidfVectorizer
+from nltk.corpus import stopwords 
+import numpy as np
+import urllib
+import moviepy.editor as mp
 #loading Model and constants
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 N=60
 
 
-#Video Download Function
-# def video_download(link,type):
-#     print("Video Downloading")
-#     if type=='yt':
-#         yt = YouTube(link)
-#         mp4_files = yt.streams.filter(file_extension="mp4")
-#         mp4_369p_files = mp4_files.get_by_resolution("360p")
-#         mp4_369p_files.download(filename=link.split("=")[-1]+".mp4")
-#         return link.split("=")[-1]+".mp4"
-#     elif type=="static":
-#         urllib.request.urlretrieve(link, str(link.split("token=")[-1])+'.mp4')
-#         return str(link.split("token=")[-1])+'.mp4'
+#Audio Download Function
+def video_download(link,type):
+    print("Video Downloading")
+    if type=='yt':
+        yt=YouTube(link)
+        video = yt.streams.filter(only_audio=True).first()
+        out_file = video.download(output_path=".")
+        # save the file
+        base, ext = os.path.splitext(out_file)
+        new_file = base + '.mp3'
+        os.rename(out_file, new_file)
+        return new_file
+    elif type=="static":
+        urllib.request.urlretrieve(link, str(link.split("token=")[-1])+'.mp4')
+        clip = mp.VideoFileClip((link.split("token=")[-1])+'.mp4')
+        clip.audio.write_audiofile(r"converted.wav")
+        return "converted.wav"
     
 # #Video Preprocess
 # def video_frames_f(link):
@@ -114,3 +125,23 @@ def search_video(search_query,link,type='yt', display_results_count=3):
         seconds = round(frame_id.cpu().numpy()[0] * N / fps)
         time_stamps.append(seconds)
     return time_stamps
+
+#Audio Hot Words
+def transcript(file):
+    leopard = pvleopard.create(access_key='clzWvIxwJZXvEIc4rhS9oBA3yoJ8GzcTqZfvn6KuqL/M7FPcB2HJWQ==')
+    file=os.path.abspath(file)
+    tsc, words = leopard.process_file(file)
+    return tsc
+
+def hot_words(link,type):
+    file=video_download(link,type)
+    # file=os.path.abspath("converted.wav")
+    print("Transcribing")
+    vectorizer = TfidfVectorizer(max_features=10,stop_words=stopwords.words('english'))    
+    corpus = [transcript(file)]
+    X = vectorizer.fit_transform(corpus).todense()
+    X1 = np.array(X).flatten()
+    X2  = vectorizer.get_feature_names_out().flatten()
+    arr = np.array([X1,X2]).T.tolist()
+    arr=sorted(arr,key=lambda x:x[0],reverse=True)
+    return [x for x in arr[:10]]

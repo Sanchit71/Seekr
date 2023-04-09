@@ -1,6 +1,6 @@
 #Imports
 from flask import Flask, jsonify, request
-from model import search_video
+from model import search_video,hot_words
 from flask_cors import CORS,cross_origin
 #App
 app = Flask("App")
@@ -30,6 +30,24 @@ def image_result():
             return jsonify(timestamps)
         except:
             return jsonify({"Error":"Something went wrong"})
+        
+@app.route("/audio",methods=["POST"])
+@cross_origin()
+#Function
+def hot_word():
+    try:
+        link=request.get_json()['link']
+        type=request.get_json()['type']
+    except:
+        return jsonify({"Error":"Please enter all the required parameters"})
+    if  len(link)==0 or len(type)==0:
+        return jsonify({"Error":"Please enter all the required parameters"})
+    else:
+        # try:
+            hot={"hot_words":hot_words(link,type)}
+            return jsonify(hot)
+        # except:
+            # return jsonify({"Error":"Something went wrong"})
 
 if __name__ == '__main__':
 	app.run()
