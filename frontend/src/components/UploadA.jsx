@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
+import { Chip } from "@mui/material";
 import {
   getStorage,
   ref,
@@ -14,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStart, fetchSuccess, fetchFailure } from "../redux/videoSlice";
 import { Switch } from "@mui/material";
+import { videoWords } from "../redux/videoSlice";
 import LinearProgress from "@mui/material/LinearProgress";
 import { Box, Typography } from "@mui/material";
 import { BoxLoading } from "react-loadingg";
@@ -57,7 +59,7 @@ const Lding = styled.h1`
 `;
 
 const Wrapper = styled.div`
-  height: 300px;
+  height: fit-content;
   margin-top: 40px;
   background: #272d37;
   border-radius: 10px;
@@ -154,7 +156,7 @@ const UploadA = () => {
   const [imgPer, setImgPer] = useState(0);
   const [clicked, setClicked] = useState(false);
   const [inputs, setInputs] = useState({});
-  const [words, setWords] = useState([]);
+  const [words, setWords] = useState(null);
   const [des, setDes] = useState("");
   const [link, setLink] = useState("");
   const [iurl, setImage] = useState("");
@@ -166,11 +168,6 @@ const UploadA = () => {
     setChecked(event.target.checked);
   };
   const currentUser = useSelector((state) => state.user.currentUser);
-  const handleChange = (e) => {
-    setInputs((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
-  };
 
   const uploadFile = (file, urlType) => {
     dispatch(fetchStart());
@@ -218,31 +215,56 @@ const UploadA = () => {
 
   const handleGetWordVideo = async (e) => {
     e.preventDefault();
+    if (!video) {
+      alert("Please upload a video");
+      return;
+    }
+    setLoading(true);
     const res = await axios.post(
-      "http://",
+      "http://127.0.0.1:5000/audio",
       {
         link: iurl,
+        type: "static",
       },
       { headers: { "Content-Type": "application/json" } }
     );
-    setWords(res.data);
+    setWords(res.data.hot_words);
+    setLoading(false);
     setClicked(true);
   };
 
   const handleGetWordLink = async (e) => {
     e.preventDefault();
+    if (!link) {
+      alert("Please upload a link");
+      return;
+    }
+    setLoading(true);
+
     const res = await axios.post(
-      "http://",
+      "http://127.0.0.1:5000/audio",
       {
         link: link,
+        type: "yt",
       },
       { headers: { "Content-Type": "application/json" } }
     );
-    setWords(res.data);
+    setWords(res.data.hot_words);
+    setLoading(false);
     setClicked(true);
   };
 
+  //   word link...................................
+
   const handleUploadVideo = async (e) => {
+    if (!video) {
+      alert("Please upload a video");
+      return;
+    }
+    if (!des) {
+      alert("Please Write description");
+      return;
+    }
     setLoading(true);
     e.preventDefault();
     const res = await axios.post(
@@ -268,6 +290,14 @@ const UploadA = () => {
   };
 
   const handleUploadLink = async (e) => {
+    if (!link) {
+      alert("Please upload a link");
+      return;
+    }
+    if (!des) {
+      alert("Please Write description");
+      return;
+    }
     setLoading(true);
     e.preventDefault();
     const res = await axios.post(
@@ -317,7 +347,6 @@ const UploadA = () => {
               <img src={require("../assets/Upload.png")} alt="nothing" />
             </Image>
             <Wrapper>
-              {console.log(checked)}
               <Close>
                 <Switch
                   checked={checked}
@@ -338,7 +367,18 @@ const UploadA = () => {
                       />
                     </>
                   )}
-
+                  <div
+                    style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
+                  >
+                    {words &&
+                      words.map((word, index) => {
+                        return (
+                          <span key={index} style={{ color: "white" }}>
+                            <Chip label={word[1]} color="warning" />
+                          </span>
+                        );
+                      })}
+                  </div>
                   {clicked && (
                     <Desc
                       placeholder="Description"
@@ -366,7 +406,18 @@ const UploadA = () => {
                     name="link"
                     onChange={(e) => setLink(e.target.value)}
                   />
-                  {/* {data && } */}
+                  <div
+                    style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
+                  >
+                    {words &&
+                      words.map((word, index) => {
+                        return (
+                          <span key={index} style={{ color: "white" }}>
+                            <Chip label={word[1]} color="warning" />
+                          </span>
+                        );
+                      })}
+                  </div>
                   {clicked && (
                     <Desc
                       placeholder="Description"

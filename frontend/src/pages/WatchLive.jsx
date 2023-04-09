@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Container = styled.div`
   width: 100%;
@@ -58,6 +61,9 @@ const Content = styled.div`
 `;
 
 const Watch = () => {
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, []);
   return (
     <>
       <Container>
@@ -71,6 +77,7 @@ const Watch = () => {
               src={require("../assets/WatchLive.png")}
               alt="nothing"
               height={700}
+              data-aos="fade-left"
             />
           </Image>
         </Wrapper>

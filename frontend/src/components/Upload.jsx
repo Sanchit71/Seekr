@@ -216,6 +216,14 @@ const Upload = () => {
   }, [video]);
 
   const handleUploadVideo = async (e) => {
+    if (!video) {
+      alert("Please upload a video");
+      return;
+    }
+    if (!des) {
+      alert("Please Write description");
+      return;
+    }
     setLoading(true);
     e.preventDefault();
     const res = await axios.post(
@@ -240,6 +248,14 @@ const Upload = () => {
     dispatch(fetchSuccess({ link: iurl, data }));
   };
   const handleUploadLink = async (e) => {
+    if (!link) {
+      alert("Please upload a link");
+      return;
+    }
+    if (!des) {
+      alert("Please Write description");
+      return;
+    }
     setLoading(true);
     e.preventDefault();
     const res = await axios.post(

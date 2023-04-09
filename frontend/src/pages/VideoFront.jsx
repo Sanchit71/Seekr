@@ -4,6 +4,8 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Card from "react-animated-3d-card";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Container = styled.div`
   width: 100%;
@@ -74,114 +76,122 @@ const Image = styled.div`
 
 const VideoFront = () => {
   const navigate = useNavigate();
-
+  useEffect(() => {
+    AOS.init({ duration: 2000 });
+  }, []);
   return (
     <Container>
       <Title id="action">We provide State of the Art Solutions.</Title>
       <Wrapper>
-        <Card
-          style={{
-            backgroundColor: "black",
-            width: "600px",
-            boxShadow: "10px 6px 20px 0 rgba(118, 173, 255, 0.805)",
-            cursor: "pointer",
-            transition: "all 350ms ease-in-out",
-            overFlow: "hidden",
-          }}
-          onClick={() => {
-            navigate("/uploada");
-          }}
-        >
-          <Image>
-            <img
-              src={require("../assets/Seeker.png")}
-              alt="nothing"
-              height={370}
-            />
-          </Image>
-          <BT>A-seekr</BT>
-          <Content>
-            With the increasing popularity of video-based learning, students are
-            using videos more frequently as a primary source of information.
-          </Content>
-          <Link
-            sx={{
-              textDecoration: "none",
+        <div data-aos="fade-up">
+          <Card
+            style={{
+              backgroundColor: "black",
+              width: "600px",
+              boxShadow: "10px 6px 20px 0 rgba(118, 173, 255, 0.805)",
+              cursor: "pointer",
+              transition: "all 350ms ease-in-out",
+              overFlow: "hidden",
+            }}
+            onClick={() => {
+              navigate("/uploada");
             }}
           >
-            <Button
-              variant="contained"
-              component="label"
-              fullWidth
+            <Image>
+              <img
+                src={require("../assets/Seeker.png")}
+                alt="nothing"
+                height={370}
+              />
+            </Image>
+            <BT>A-seekr</BT>
+            <Content>
+              With the increasing popularity of video-based learning, students
+              are using videos more frequently as a primary source of
+              information.
+            </Content>
+            <Link
               sx={{
-                letterSpacing: 2,
-                backgroundImage:
-                  "linear-gradient(126.21deg, #6A35EE 0%, #9930EF 14.24%, #5737EE 49.56%, #795CEB 93.2%);",
-                height: 50,
-                fontSize: 20,
                 textDecoration: "none",
-                fontFamily: "'Abril Fatface', cursive",
-                transition: "all 350ms ease-in-out",
-                ":hover": {
-                  backgroundImage:
-                    "linear-gradient(126.21deg, #6b46ca 0%, #9449d1 14.24%, #634ec9 49.56%, #664ec5 93.2%);",
-                },
               }}
             >
-              Explore Now
-            </Button>
-          </Link>
-        </Card>
-        <Card
-          style={{
-            backgroundColor: "black",
-            width: "600px",
-            boxShadow: "10px 6px 20px 0 rgba(255, 104, 252, 0.797)",
-            cursor: "pointer",
-            overFlow: "hidden",
-          }}
-          onClick={() => {
-            navigate("/upload");
-          }}
-        >
-          <Image>
-            <img
-              src={require("../assets/Seeker1.png")}
-              alt="nothing"
-              height={370}
-            />
-          </Image>
-          <BT>I-seekr</BT>
-          <Content>
-            With the increasing popularity of video-based learning, students are
-            using videos more frequently as a primary source of information.
-          </Content>
-          <Link
-            sx={{
-              textDecoration: "none",
+              <Button
+                variant="contained"
+                component="label"
+                fullWidth
+                sx={{
+                  letterSpacing: 2,
+                  backgroundImage:
+                    "linear-gradient(126.21deg, #6A35EE 0%, #9930EF 14.24%, #5737EE 49.56%, #795CEB 93.2%);",
+                  height: 50,
+                  fontSize: 20,
+                  textDecoration: "none",
+                  fontFamily: "'Abril Fatface', cursive",
+                  transition: "all 350ms ease-in-out",
+                  ":hover": {
+                    backgroundImage:
+                      "linear-gradient(126.21deg, #6b46ca 0%, #9449d1 14.24%, #634ec9 49.56%, #664ec5 93.2%);",
+                  },
+                }}
+              >
+                Explore Now
+              </Button>
+            </Link>
+          </Card>
+        </div>
+        <div data-aos="fade-up">
+          <Card
+            style={{
+              backgroundColor: "black",
+              width: "600px",
+              boxShadow: "10px 6px 20px 0 rgba(255, 104, 252, 0.797)",
+              cursor: "pointer",
+              overFlow: "hidden",
+            }}
+            onClick={() => {
+              navigate("/upload");
             }}
           >
-            <Button
-              variant="contained"
-              component="label"
-              fullWidth
+            <Image>
+              <img
+                src={require("../assets/Seeker1.png")}
+                alt="nothing"
+                height={370}
+              />
+            </Image>
+            <BT>I-seekr</BT>
+            <Content>
+              With the increasing popularity of video-based learning, students
+              are using videos more frequently as a primary source of
+              information.
+            </Content>
+            <Link
               sx={{
-                backgroundImage:
-                  "linear-gradient(126.21deg, #6A35EE 0%, #9930EF 14.24%, #5737EE 49.56%, #795CEB 93.2%);",
-                height: 50,
-                fontSize: 20,
-                fontFamily: "'Abril Fatface', cursive",
-                transition: "all 350ms ease-in-out",
-                ":hover": {
-                  backgroundImage:
-                    "linear-gradient(126.21deg, #7c48ff 0%, #9449d1 14.24%, #634ec9 49.56%, #664ec5 93.2%);",
-                },
+                textDecoration: "none",
               }}
             >
-              Explore Now
-            </Button>
-          </Link>
-        </Card>
+              <Button
+                variant="contained"
+                component="label"
+                fullWidth
+                sx={{
+                  backgroundImage:
+                    "linear-gradient(126.21deg, #6A35EE 0%, #9930EF 14.24%, #5737EE 49.56%, #795CEB 93.2%);",
+                  height: 50,
+                  fontSize: 20,
+                  fontFamily: "'Abril Fatface', cursive",
+                  transition: "all 350ms ease-in-out",
+                  ":hover": {
+                    backgroundImage:
+                      "linear-gradient(126.21deg, #7c48ff 0%, #9449d1 14.24%, #634ec9 49.56%, #664ec5 93.2%);",
+                  },
+                }}
+              >
+                Explore Now
+              </Button>
+            </Link>
+          </Card>
+        </div>
       </Wrapper>
     </Container>
   );

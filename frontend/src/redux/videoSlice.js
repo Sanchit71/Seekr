@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   currentHistory: null,
+  word: null,
   currentVideo: null,
   loading: false,
   error: false,
@@ -30,6 +31,9 @@ export const videoSlice = createSlice({
     historyVideo: (state, action) => {
       state.currentHistory = action.payload;
     },
+    videoWords: (state, action) => {
+      state.word = action.payload;
+    },
     reloadHistory: (state) => {
       state.currentHistory = null;
     },
@@ -43,6 +47,7 @@ export const {
   fetchFailure,
   historyVideo,
   reloadHistory,
+  videoWords,
 } = videoSlice.actions;
 
 export default videoSlice.reducer;
