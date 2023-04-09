@@ -67,7 +67,7 @@ const Watch = () => {
   return (
     <>
       <Container>
-        <Title id="watch">Watch Live</Title>
+        <Title>Watch Live</Title>
         <Wrapper>
           <Card>
             <Content></Content>

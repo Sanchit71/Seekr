@@ -21,7 +21,7 @@ const Title = styled.h1`
     #219bf2 73.51%,
     #00adf2 95.21%
   );
-  margin-top: 300px;
+  margin-top: 200px;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -64,7 +64,7 @@ const ProblemS = () => {
   return (
     <>
       <Container>
-        <Title id="mission">Mission statement</Title>
+        <Title>Mission statement</Title>
         <Wrapper>
           <Image>
             <img
@@ -125,6 +125,7 @@ const ProblemS = () => {
             />
           </Card>
         </Wrapper>
+        <div id="action"></div>
       </Container>
     </>
   );

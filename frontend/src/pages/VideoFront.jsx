@@ -10,7 +10,7 @@ import "aos/dist/aos.css";
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  margin-top: 200px;
+  margin-top: 100px;
   color: white;
   align-items: center;
   justify-content: center;
@@ -81,7 +81,7 @@ const VideoFront = () => {
   }, []);
   return (
     <Container>
-      <Title id="action">We provide State of the Art Solutions.</Title>
+      <Title>We provide State of the Art Solutions.</Title>
       <Wrapper>
         <div data-aos="fade-up">
           <Card
@@ -193,6 +193,7 @@ const VideoFront = () => {
           </Card>
         </div>
       </Wrapper>
+      <div id="watch"></div>
     </Container>
   );
 };

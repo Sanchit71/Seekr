@@ -97,6 +97,7 @@ const HeadContent = () => {
         )}
       </Wrapper>
       <MyComponent />
+      <div id="mission"></div>
     </Container>
   );
 };

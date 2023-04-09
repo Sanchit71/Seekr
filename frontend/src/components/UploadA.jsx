@@ -153,6 +153,7 @@ const Label = styled.label`
 const UploadA = () => {
   const [video, setVideo] = useState(undefined);
   const [videoPer, setVideoPer] = useState(0);
+  const [file, setFile] = useState("");
   const [imgPer, setImgPer] = useState(0);
   const [clicked, setClicked] = useState(false);
   const [inputs, setInputs] = useState({});
@@ -168,7 +169,7 @@ const UploadA = () => {
     setChecked(event.target.checked);
   };
   const currentUser = useSelector((state) => state.user.currentUser);
-
+  // const currentVideo = useSelector((state) => state.user.currentUser);
   const uploadFile = (file, urlType) => {
     dispatch(fetchStart());
     const storage = getStorage(app);
@@ -229,6 +230,7 @@ const UploadA = () => {
       { headers: { "Content-Type": "application/json" } }
     );
     setWords(res.data.hot_words);
+    setFile(res.data.file);
     setLoading(false);
     setClicked(true);
   };
@@ -240,7 +242,6 @@ const UploadA = () => {
       return;
     }
     setLoading(true);
-
     const res = await axios.post(
       "http://127.0.0.1:5000/audio",
       {
@@ -250,6 +251,7 @@ const UploadA = () => {
       { headers: { "Content-Type": "application/json" } }
     );
     setWords(res.data.hot_words);
+    setFile(res.data.file);
     setLoading(false);
     setClicked(true);
   };
@@ -268,16 +270,15 @@ const UploadA = () => {
     setLoading(true);
     e.preventDefault();
     const res = await axios.post(
-      "http://127.0.0.1:5000/video",
+      "http://127.0.0.1:5000/audio_time",
       {
-        link: iurl,
-        type: "static",
         query: des,
+        file: file,
       },
       { headers: { "Content-Type": "application/json" } }
     );
     console.log(des);
-    const data = res.data.times_in_sec;
+    const data = res.data.timestamps;
     setLoading(false);
     ////
     const his = await axios.put(`/users/history/${currentUser._id}`, {
@@ -301,16 +302,15 @@ const UploadA = () => {
     setLoading(true);
     e.preventDefault();
     const res = await axios.post(
-      "http://127.0.0.1:5000/video",
+      "http://127.0.0.1:5000/audio_time",
       {
-        link: link,
-        type: "yt",
         query: des,
+        file: file,
       },
       { headers: { "Content-Type": "application/json" } }
     );
-    const data = res.data.times_in_sec;
-    console.log(data);
+    console.log(res);
+    const data = res.data.timestamps;
     setLoading(false);
     //
     await axios.put(`/users/history/${currentUser._id}`, {
@@ -319,6 +319,7 @@ const UploadA = () => {
       query: des,
     });
     //
+    console.log(link, data);
     dispatch(fetchSuccess({ link, data }));
   };
 
@@ -361,10 +362,12 @@ const UploadA = () => {
                     <LinearProgressWithLabel />
                   ) : (
                     <>
-                      <Input
-                        type="file"
-                        onChange={(e) => setVideo(e.target.files[0])}
-                      />
+                      {!clicked && (
+                        <Input
+                          type="file"
+                          onChange={(e) => setVideo(e.target.files[0])}
+                        />
+                      )}
                     </>
                   )}
                   <div
@@ -400,12 +403,14 @@ const UploadA = () => {
               ) : (
                 <>
                   <Label>Video Link :</Label>
-                  <Desc
-                    placeholder="Link of video"
-                    row={8}
-                    name="link"
-                    onChange={(e) => setLink(e.target.value)}
-                  />
+                  {!clicked && (
+                    <Desc
+                      placeholder="Link of video"
+                      row={8}
+                      name="link"
+                      onChange={(e) => setLink(e.target.value)}
+                    />
+                  )}
                   <div
                     style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
                   >

@@ -155,7 +155,6 @@ const PlayVideo = () => {
             onReady={onReady1}
           />
         </Dis>
-
         <Dis>
           <h1>
             At{" "}
