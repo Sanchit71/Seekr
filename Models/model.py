@@ -9,12 +9,16 @@ from pytube import YouTube
 import cv2
 import yt_dlp as youtube_dl
 import pvleopard
-import os
+import os, shutil
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.corpus import stopwords 
 import numpy as np
 import urllib
 import moviepy.editor as mp
+from pydub import AudioSegment
+from pydub.utils import make_chunks
+from sentence_transformers import SentenceTransformer
+from numpy.linalg import norm
 #loading Model and constants
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
@@ -144,4 +148,39 @@ def hot_words(link,type):
     X2  = vectorizer.get_feature_names_out().flatten()
     arr = np.array([X1,X2]).T.tolist()
     arr=sorted(arr,key=lambda x:x[0],reverse=True)
-    return [x for x in arr[:10]]
+    return file,[x for x in arr[:10]]
+
+def chunks(file):
+    try :
+        os.mkdir('chunks')
+    except: 
+        shutil.rmtree('chunks')
+        os.mkdir('chunks')
+    myaudio = AudioSegment.from_file(file) 
+    chunk_length_ms = 100000 # pydub calculates in millisec
+    chunks = make_chunks(myaudio, chunk_length_ms) #Make chunks of 100 sec
+    #Export all of the individual chunks as wav files
+    chunks_list=[]
+    for i, chunk in enumerate(chunks):
+        chunk_name = "./chunks/{0}chunk.wav".format(i)
+        print ("exporting", chunk_name)
+        chunk.export(chunk_name, format="wav")
+        chunks_list.append(chunk_name)
+    return chunks_list
+def query(file,query):
+    sentences=[]
+    chunk_list=chunks(file)
+    for chunk in chunk_list:
+        sentences.append(transcript(chunk))
+
+    model = SentenceTransformer('all-MiniLM-L6-v2')
+    sentence_embeddings = model.encode(sentences)
+    sentence_embeddings.shape
+    query = [query]
+
+    query_embedding = model.encode(query).reshape(1, -1)
+    similarities=[]
+    for i in range(len(sentences)):
+        cosine = np.dot(sentence_embeddings[i],query_embedding[0])/(norm(sentence_embeddings[i])*norm(query_embedding[0]))
+        similarities.append(cosine)
+    return [int((x+1)*100000) for x in np.argsort(similarities)[-3:]]
