@@ -2,12 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAlEfvDkia6Ja-pPXZp0h0bzXhHVCWCN6U",
-  authDomain: "cipertube.firebaseapp.com",
-  projectId: "cipertube",
-  storageBucket: "cipertube.appspot.com",
-  messagingSenderId: "187109078634",
-  appId: "1:187109078634:web:aa7b3b98765bef4c5f7c13",
+  apiKey: "AIzaSyAYjX3giT6xcyoOZdiTOCgVMu7YLCkdAew",
+  authDomain: "seeker-5aa0a.firebaseapp.com",
+  projectId: "seeker-5aa0a",
+  storageBucket: "seeker-5aa0a.appspot.com",
+  messagingSenderId: "832268631467",
+  appId: "1:832268631467:web:ad52e1b1c34863292026ee",
+  measurementId: "G-8LE0RDD8KF",
 };
 
 const app = initializeApp(firebaseConfig);

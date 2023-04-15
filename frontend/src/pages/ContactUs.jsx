@@ -13,7 +13,6 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
   gap: 100px;
   margin: 100px 100px;
   align-items: center;
@@ -48,8 +47,8 @@ const Image = styled.div`
 const Card = styled.div`
   background: #272d3784;
   height: 710px;
+  padding: 20px;
   border-radius: 10px;
-  overflow: hidden;
 `;
 const Content = styled.div`
   color: #adb9c7;
@@ -57,7 +56,7 @@ const Content = styled.div`
   display: flex;
   gap: 100px;
   flex: 1.5;
-  width: 1000px;
+  width: 97%;
   font-family: Luminari;
   font-size: 30px;
 `;
@@ -66,14 +65,13 @@ const Form = styled.form`
   display: flex;
   box-shadow: 10px 6px 20px 0 rgba(86, 109, 98, 0.477);
   flex-direction: column;
-  width: 500px;
+  width: 60%;
   margin: 15px;
   gap: 15px;
   background-color: #0b303889;
   padding: 20px;
   border-radius: 10px;
 `;
-
 
 const Button = styled.button`
   padding: 5px 15px;
@@ -99,7 +97,6 @@ const Button = styled.button`
   }
 `;
 
-
 const WhiteBorderTextField = styled(TextField)`
   & .css-1v4qvbo-MuiFormLabel-root-MuiInputLabel-root {
     color: #1faac9;
@@ -109,7 +106,10 @@ const WhiteBorderTextField = styled(TextField)`
   }
 `;
 
-const Email = styled.div``;
+const Email = styled.div`
+  width: 40%;
+  margin: 20px;
+`;
 
 const ContactUs = () => {
   return (

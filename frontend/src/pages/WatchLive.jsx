@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import ReactPlayer from "react-player";
 
 const Container = styled.div`
   width: 100%;
@@ -12,7 +13,6 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
   gap: 30px;
   margin: 100px 100px;
   align-items: center;
@@ -55,7 +55,7 @@ const Content = styled.div`
   padding: 20px;
   height: 410px;
   flex: 1.5;
-  width: 1000px;
+  width: 95%;
   font-family: Luminari;
   font-size: 30px;
 `;
@@ -70,7 +70,14 @@ const Watch = () => {
         <Title>Watch Live</Title>
         <Wrapper>
           <Card>
-            <Content></Content>
+            <Content>
+              <ReactPlayer
+                url="https://drive.google.com/file/d/1Q1BmRUvCk0F77_BNl-L_okufzbN-7Rq2/view?usp=share_link"
+                width="100%"
+                height="550px"
+                controls={true}
+              />
+            </Content>
           </Card>
           <Image>
             <img

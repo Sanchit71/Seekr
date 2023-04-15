@@ -50,7 +50,6 @@ const Content = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
   gap: 30px;
   margin: 100px;
   align-items: center;
