@@ -22,7 +22,7 @@ import clip
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
-#51 seconds
+#51 seconds - > 40 seconds
 # Prediction
 def search_video(search_query, link, type="yt", display_results_count=3):
     #Old Code which required downloading the video
@@ -30,9 +30,9 @@ def search_video(search_query, link, type="yt", display_results_count=3):
     # fps,video_frames=video_frames_f(video_link)
 
     #Extract Frames without downloading
-    fps, video_frames = vp.video_preprocess(link, type)
+    fps, video_features = vp.video_preprocess(link, type, device, model, preprocess)
     #Adds NLP encoding features to the frames
-    video_features = vp.frame_classifier(video_frames, device, model, preprocess)
+    # video_features = vp.frame_classifier(video_frames, device, model, preprocess)
     #Adds NLP encoding to the search query
     with torch.no_grad():
         text_features = model.encode_text(clip.tokenize(search_query).to(device))
