@@ -65,21 +65,32 @@ def video_preprocess(link, type):
 # Adding context to each frame
 
 
-def frame_classifier(video_frames,device,model,preprocess):
+import concurrent.futures
+
+def process_batch(batch_frames, device, model, preprocess):
+    batch_preprocessed = torch.stack([preprocess(frame) for frame in batch_frames]).to(device)
+    with torch.no_grad():
+        batch_features = model.encode_image(batch_preprocessed)
+        batch_features /= batch_features.norm(dim=-1, keepdim=True)
+    return batch_features
+
+def frame_classifier(video_frames, device, model, preprocess):
     batch_size = 256
     batches = math.ceil(len(video_frames) / batch_size)
-    video_features = torch.empty(
-        [0, 512], dtype=torch.float16).to(device)  # Encoded Frames
-    # Frames Processing
-    for i in range(batches):
-        print(f"Processing batch {i+1}/{batches}")
-        batch_frames = video_frames[i*batch_size: (i+1)*batch_size]
-        batch_preprocessed = torch.stack(
-            [preprocess(frame) for frame in batch_frames]).to(device)
-        with torch.no_grad():
-            batch_features = model.encode_image(batch_preprocessed)
-            batch_features /= batch_features.norm(dim=-1, keepdim=True)
-        video_features = torch.cat((video_features, batch_features))
-    # Print some stats
+    video_features = torch.empty([0, 512], dtype=torch.float16).to(device)  # Encoded Frames
+    
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        futures = []
+        
+        for i in range(batches):
+            batch_frames = video_frames[i * batch_size: (i + 1) * batch_size]
+            future = executor.submit(process_batch, batch_frames, device, model, preprocess)
+            futures.append(future)
+        
+        for future in concurrent.futures.as_completed(futures):
+            batch_features = future.result()
+            video_features = torch.cat((video_features, batch_features))
+    
     print(f"Features Shape: {video_features.shape}")
     return video_features
+
